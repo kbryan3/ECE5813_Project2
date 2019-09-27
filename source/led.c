@@ -9,6 +9,9 @@
 *
 ***********************************************************************/
 #include <stdint.h>
+#include "led.h"
+
+#if !defined(PC_RUN) || !defined(PC_DEBUG)
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
@@ -16,7 +19,11 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 
-//#define FB_DEBUG
+#else
+#include <stdio.h>
+#endif
+
+
 
 void initializeLEDs()
 {
@@ -31,7 +38,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 	uint32_t msDelay = delay*.00024;
 	if(ledColor == 0)
 	{
-#if defined(PC_RUN) || defined(PC_DEBUG)
+#if !defined(PC_RUN) || !defined(PC_DEBUG)
 		LED_RED_TOGGLE();
 #ifdef FB_DEBUG
 			if(on)
@@ -58,7 +65,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 	}
 	else if(ledColor == 1)
 	{
-#if defined(PC_RUN) || defined(PC_DEBUG)
+#if !defined(PC_RUN) || !defined(PC_DEBUG)
 		LED_GREEN_TOGGLE();
 #ifdef FB_DEBUG
 			if(on)
@@ -85,7 +92,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 	}
 	else if(ledColor == 2)
 	{
-#if defined(PC_RUN) || defined(PC_DEBUG)
+#if !defined(PC_RUN) || !defined(PC_DEBUG)
 		LED_BLUE_TOGGLE();
 #ifdef FB_DEBUG
 			if(on)

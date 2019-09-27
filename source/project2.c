@@ -27,12 +27,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 /**
  * @file    project2.c
  * @brief   Application entry point.
  */
-#include <stdio.h>
+
+#include <stdint.h>
+#include "led.h"
+#if !defined(PC_RUN) || !defined(PC_DEBUG)
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
@@ -40,7 +43,9 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 
-#include "led.h"
+#else
+#include <stdio.h>
+#endif
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -58,6 +63,7 @@ void delay(volatile int32_t number);
  */
 int main(void) {
 
+#if !defined(PC_RUN) || !defined(PC_DEBUG)
   	/* Init board hardware. */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -67,6 +73,7 @@ int main(void) {
 
     PRINTF("Hello World\n");
     initializeLEDs();
+#endif
 
     /* Force the counter to be placed into memory. */
     volatile static uint32_t i = 0;
