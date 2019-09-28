@@ -1,1 +1,1 @@
-../Debug/source/mtb.o ../Debug/source/mtb.d: ../source/mtb.c
+source/mtb.o source/mtb.d: ../source/mtb.c
