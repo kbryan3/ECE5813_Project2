@@ -4,16 +4,15 @@ RM := rm -rf
 
 ############################
 # Compiler
-CC = arm-none-eabi-gcc
+
 
 ############################
 # Linker
-LL = arm-none-eabi-gcc
+
 
 ############################
 # Binary/exectable to build
-EXE = \
-  ./project2.axf
+
 
 ############################
 # List of object files
@@ -36,7 +35,7 @@ OBJS = \
   ./board/clock_config.o \
   ./board/peripherals.o \
   ./board/pin_mux.o \
-  
+
 
 ############################
 # List of dependency files
@@ -47,7 +46,7 @@ C_DEPS = \
   ./source/*.d \
   ./startup/*.d \
   ./utilities/*.d \
-  
+
 
 ############################
 # Include generated dependcy files (only if not clean target)
@@ -63,11 +62,11 @@ INC = -I../board -I../source -I../ -I../drivers -I../CMSIS -I../utilities -I../s
 
 ############################
 # Compiler options
-CC_OPTIONS := -c -std=gnu99 -O0 -g -ffunction-sections -fdata-sections -fno-builtin -mcpu=cortex-m0plus -mthumb -DCPU_MKL25Z128VLK4 -D__USE_CMSIS $(INC) 
+
 
 ############################
 # Linker Options
-LL_OPTIONS := -nostdlib -Xlinker -Map="project2.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0plus -mthumb -T project2_Debug.ld -o $(EXE)
+
 
 
 ############################
@@ -75,10 +74,20 @@ LL_OPTIONS := -nostdlib -Xlinker -Map="project2.map" -Xlinker --gc-sections -Xli
 all: $(EXE)
 	@echo "*** finished building ***"
 
+fb_run: CC_OPTIONS = -c -std=gnu99 -O0 -g -ffunction-sections -fdata-sections -fno-builtin -mcpu=cortex-m0plus -mthumb -DCPU_MKL25Z128VLK4 -D__USE_CMSIS $(INC) -DFB_DEBUG
+fb_run: LL_OPTIONS = -nostdlib -Xlinker -Map="project2.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0plus -mthumb -T project2_Debug.ld -o $(EXE)
+fb_run: EXE = ./project2.axf
+fb_run: CC = arm-none-eabi-gcc
+fb_run: LL = arm-none-eabi-gcc
 fb_run: $(EXE)
 	@echo "*** finished building ***"
 
-fb_debug: CC_OPTIONS += -DFB_DEBUG
+#fb_debug: CC_OPTIONS += -DFB_DEBUG
+fb_debug: CC_OPTIONS = -c -std=gnu99 -O0 -g -ffunction-sections -fdata-sections -fno-builtin -mcpu=cortex-m0plus -mthumb -DCPU_MKL25Z128VLK4 -D__USE_CMSIS $(INC) -DFB_DEBUG
+fb_debug: LL_OPTIONS = -nostdlib -Xlinker -Map="project2.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0plus -mthumb -T project2_Debug.ld -o $(EXE)
+fb_debug: EXE = ./project2.axf
+fb_debug: CC = arm-none-eabi-gcc
+fb_debug: LL = arm-none-eabi-gcc
 fb_debug: $(EXE)
 
 
@@ -90,7 +99,7 @@ pc_run: OBJS = ./source/project2.o ./source/led.o
 pc_run: C_DEPS = ./source/project2.d ./source/led.d
 pc_run: CC_OPTIONS = -O0 -c std=gnu99 -g $(INC) -DPC_RUN
 pc_run: LL_OPTIONS =
-pc_run: project2.o
+pc_run: $(EXE)
 	@echo "*** finished building ***"
 
 #pc_debug:
@@ -102,12 +111,6 @@ clean:
 	-$(RM) ./Debug/*.map
 	-@echo ' '
 
-project2.o: ../source/led.o $(USER_OBJS)
-	@echo 'Building target: $@'
-	@echo 'Invoking: Linker'
-	$(LL) $(LL_OPTIONS) ./source/project2.o ./source/led.o $(LIBS)
-	@echo 'Finished building target: $@'
-	@echo ' '
 ############################
 # Rule to link the executable
 $(EXE): $(OBJS) $(USER_OBJS)
@@ -116,7 +119,7 @@ $(EXE): $(OBJS) $(USER_OBJS)
 	$(LL) $(LL_OPTIONS) $(OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
-	
+
 ############################
 # Rule to build the files in the source folder
 ./source/%.o: ../source/%.c
@@ -132,7 +135,7 @@ $(EXE): $(OBJS) $(USER_OBJS)
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
-	
+
 	############################
 # Rule to build the files in the startup folder
 ./startup/%.o: ../startup/%.c
@@ -140,7 +143,7 @@ $(EXE): $(OBJS) $(USER_OBJS)
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
-	
+
 	############################
 # Rule to build the files in the source folder
 ./source/%.o: ../source/%.c
@@ -156,7 +159,7 @@ $(EXE): $(OBJS) $(USER_OBJS)
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
-	
+
 	############################
 # Rule to build the files in the board folder
 ./board/%.o: ../board/%.c
