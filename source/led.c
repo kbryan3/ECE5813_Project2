@@ -27,9 +27,11 @@
 
 void initializeLEDs()
 {
+#ifndef PC_RUN
 	LED_BLUE_INIT(1);
 	LED_RED_INIT(1);
 	LED_GREEN_INIT(1);
+#endif
 }
 
 //toggles LED: 0 red, 1 yellow, 2 blue

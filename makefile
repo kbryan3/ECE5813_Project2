@@ -93,7 +93,6 @@ fb_debug: ./project2.axf
 
 pc_run: CC = gcc
 pc_run: LL = gcc
-#pc_run: EXE = ./project2.o
 pc_run: OBJS = ./source/project2.o ./source/led.o
 pc_run: C_DEPS = ./source/project2.d ./source/led.d
 pc_run: CC_OPTIONS = -O0 -c -g $(INC) -DPC_RUN
@@ -140,7 +139,7 @@ clean:
 
 ############################
 # Rule to build the files in the source folder
-./source/%.o: ../source/%.c
+source/%.o: ../source/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
@@ -148,7 +147,7 @@ clean:
 
 ############################
 # Rule to build the files in the CMSIS folder
-./CMSIS/%.o: ../CMSIS/%.c
+CMSIS/%.o: ../CMSIS/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
@@ -156,7 +155,7 @@ clean:
 
 	############################
 # Rule to build the files in the startup folder
-./startup/%.o: ../startup/%.c
+startup/%.o: ../startup/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
@@ -164,7 +163,7 @@ clean:
 
 	############################
 # Rule to build the files in the source folder
-../source/%.o: ../source/%.c
+source/%.o: ../source/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
@@ -172,7 +171,7 @@ clean:
 
 	############################
 # Rule to build the files in the utilities folder
-./utilities/%.o: ../utilities/%.c
+utilities/%.o: ../utilities/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
@@ -180,7 +179,7 @@ clean:
 
 	############################
 # Rule to build the files in the board folder
-./board/%.o: ../board/%.c
+board/%.o: ../board/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
@@ -188,7 +187,7 @@ clean:
 
 	############################
 # Rule to build the files in the drivers folder
-./drivers/%.o: ../drivers/%.c
+drivers/%.o: ../drivers/%.c
 	@echo 'Building file: $<'
 	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'

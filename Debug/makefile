@@ -12,7 +12,7 @@ RM := rm -rf
 
 ############################
 # Binary/exectable to build
-EXE = ./project2.axf
+EXE = project2.axf
 
 ############################
 # List of object files
