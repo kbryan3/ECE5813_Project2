@@ -39,7 +39,7 @@ OBJS = \
 
 ############################
 # List of dependency files
-C_DEPS = \
+C_DEPS += \
   ./board/*.d \
   ./CMSIS/*.d \
   ./drivers/*.d \
@@ -93,11 +93,10 @@ fb_debug: ./project2.axf
 
 pc_run: CC = gcc
 pc_run: LL = gcc
-pc_run: INC = -I../source
 #pc_run: EXE = ./project2.o
 pc_run: OBJS = ./source/project2.o ./source/led.o
 pc_run: C_DEPS = ./source/project2.d ./source/led.d
-pc_run: CC_OPTIONS = -O0 -c std=gnu99 -g $(INC) -DPC_RUN
+pc_run: CC_OPTIONS = -O0 -c -g $(INC) -DPC_RUN
 pc_run: LL_OPTIONS =
 pc_run: ./project2.out
 	@echo "*** finished building ***"
@@ -119,13 +118,25 @@ clean:
 	$(LL) $(LL_OPTIONS) $(OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
-	
+
 ./project2.out: ../source/project2.o ../source/led.o $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Linker'
 	$(LL) $(LL_OPTIONS) $(OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+
+../source/project2.o: ./source/project2.c
+	@echo 'Building file: $<'
+	$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+../source/led.o: ./source/led.c
+		@echo 'Building file: $<'
+		$(CC) $(CC_OPTIONS) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+		@echo 'Finished building: $<'
+		@echo ' '
 
 ############################
 # Rule to build the files in the source folder

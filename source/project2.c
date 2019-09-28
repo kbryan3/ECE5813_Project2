@@ -35,13 +35,13 @@
 
 #include <stdint.h>
 #include "led.h"
-#if !defined(PC_RUN) || !defined(PC_DEBUG)
-#include "board.h"
-#include "peripherals.h"
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "MKL25Z4.h"
-#include "fsl_debug_console.h"
+#ifndef PC_RUN
+  #include "board.h"
+  #include "peripherals.h"
+  #include "pin_mux.h"
+  #include "clock_config.h"
+  #include "MKL25Z4.h"
+  #include "fsl_debug_console.h"
 
 #else
 #include <stdio.h>
@@ -63,7 +63,7 @@ void delay(volatile int32_t number);
  */
 int main(void) {
 
-#if !defined(PC_RUN) || !defined(PC_DEBUG)
+#ifndef PC_RUN
   	/* Init board hardware. */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();

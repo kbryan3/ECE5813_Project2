@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include "led.h"
 
-#if !defined(PC_RUN) || !defined(PC_DEBUG)
+#ifndef PC_RUN
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
@@ -38,7 +38,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 	uint32_t msDelay = delay*.00024;
 	if(ledColor == 0)
 	{
-#if !defined(PC_RUN) || !defined(PC_DEBUG)
+#ifndef PC_RUN
 		LED_RED_TOGGLE();
 #ifdef FB_DEBUG
 			if(on)
@@ -52,7 +52,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			}
 #endif
 #endif
-#if defined(PC_RUN) || defined(PC_DEBUG)
+#ifdef PC_RUN
 			if(on)
 			{
 				printf("LED RED ON");
@@ -65,7 +65,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 	}
 	else if(ledColor == 1)
 	{
-#if !defined(PC_RUN) || !defined(PC_DEBUG)
+#ifndef PC_RUN
 		LED_GREEN_TOGGLE();
 #ifdef FB_DEBUG
 			if(on)
@@ -79,7 +79,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			}
 #endif
 #endif
-#if defined(PC_RUN) || defined(PC_DEBUG)
+#ifdef PC_RUN
 			if(on)
 			{
 				printf("LED GREEN ON");
@@ -92,7 +92,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 	}
 	else if(ledColor == 2)
 	{
-#if !defined(PC_RUN) || !defined(PC_DEBUG)
+#ifndef PC_RUN
 		LED_BLUE_TOGGLE();
 #ifdef FB_DEBUG
 			if(on)
@@ -106,7 +106,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			}
 #endif
 #endif
-#if defined(PC_RUN) || defined(PC_DEBUG)
+#ifdef PC_RUN
 			if(on)
 			{
 				printf("LED BLUE ON");
