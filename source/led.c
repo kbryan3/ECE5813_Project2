@@ -150,7 +150,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 #ifdef PC_DEBUG
 void printTime(uint32_t delay)
 {
-
+//https://stackoverflow.com/questions/5141960/get-the-current-time-in-c
 	time_t	t;
 	struct tm * curTime;
 	time(&t);
