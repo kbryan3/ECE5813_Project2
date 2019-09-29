@@ -45,18 +45,32 @@
 
 #else
 #include <stdio.h>
+#include <time.h>
+#include <unistd.h>
 #endif
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
 
-//lookup table for delay values
+//lookup table for delay values if FRMD Baord 24MHz if PC 1.9GHz
+#ifndef PC_RUN
 static const uint32_t delayLookup[20] =
 	{12500000, 4166667, 8333333, 2500000, 4166667,1666667, 4166667, 833333,
 	  2083333, 416667, 2083333, 416667, 2083333, 416667, 4166667, 833333,
 	  4166667, 1666667, 8333333, 2500000};
+#else
+static const uint32_t delayLookup[20] =
+  {3000, 1000, 2000, 600, 1000, 400, 1000, 200, 500, 100, 500, 100,
+    500, 100, 1000, 200, 1000, 400, 2000, 600};
+//	{5976000000 ,1992000000,3984000000,1195200000,1992000000,796800000,1992000000,
+//    398400000,996000000,199200000,996000000,199200000,996000000,199200000,
+//    1992000000,398400000,1992000000,796800000,3984000000,1195200000};
+#endif
 
-void delay(volatile int32_t number);
+void delay(volatile uint32_t number);
+
+
+
 
 /*
  * @brief   Application entry point.
@@ -130,7 +144,8 @@ int main(void) {
 *
 *@return void
 */
-void delay(volatile int32_t number)
+#ifndef PC_RUN
+void delay(volatile uint32_t number)
 {
 	while(number !=0)
 	{
@@ -138,3 +153,9 @@ void delay(volatile int32_t number)
 		number--;
 	}
 }
+#else
+void delay(volatile uint32_t number)
+{
+  usleep(number*1000);
+}
+#endif

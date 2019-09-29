@@ -93,7 +93,6 @@ fb_debug: project2.axf
 
 pc_run: CC = gcc
 pc_run: LL = gcc
-#pc_run: EXE = ./project2.o
 pc_run: OBJS = ./source/project2.o ./source/led.o
 pc_run: C_DEPS = ./source/project2.d ./source/led.d
 pc_run: CC_OPTIONS = -O0 -c -g $(INC) -DPC_RUN
@@ -101,7 +100,14 @@ pc_run: LL_OPTIONS =
 pc_run: project2.out
 	@echo "*** finished building ***"
 
-#pc_debug:
+pc_debug: CC = gcc
+pc_debug: LL = gcc
+pc_debug: OBJS = ./source/project2.o ./source/led.o
+pc_debug: C_DEPS = ./source/project2.d ./source/led.d
+pc_debug: CC_OPTIONS = -O0 -c -g $(INC) -DPC_RUN -DPC_DEBUG
+pc_debug: LL_OPTIONS =
+pc_debug: project2.out
+	@echo "*** finished building ***"
 
 ############################
 # Clean target

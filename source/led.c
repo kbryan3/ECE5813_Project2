@@ -21,7 +21,15 @@
 
 #else
 #include <stdio.h>
+#include <time.h>
+
 #endif
+
+#ifdef PC_DEBUG
+static time_t lastTime;
+void printTime();
+#endif
+
 
 
 
@@ -45,12 +53,11 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 #ifdef FB_DEBUG
 			if(on)
 			{
-
-				PRINTF("LED RED ON %d\n", msDelay);
+				PRINTF("LED RED ON %d", msDelay);
 			}
 			else
 			{
-				PRINTF("LED RED OFF %d\n", msDelay);
+				PRINTF("LED RED OFF %d", msDelay);
 			}
 #endif
 #endif
@@ -58,10 +65,16 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 				printf("LED RED ON");
+#ifdef PC_DEBUG
+				printTime(delay);
+#endif
 			}
 			else
 			{
 				printf("LED RED OFF");
+#ifdef PC_DEBUG
+				printTime(delay);
+#endif
 			}
 #endif
 	}
@@ -73,11 +86,11 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 
-				PRINTF("LED GREEN ON %d\n", msDelay);
+				PRINTF("LED GREEN ON %d", msDelay);
 			}
 			else
 			{
-				PRINTF("LED GREEN OFF %d\n", msDelay);
+				PRINTF("LED GREEN OFF %d", msDelay);
 			}
 #endif
 #endif
@@ -85,10 +98,16 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 				printf("LED GREEN ON");
+#ifdef PC_DEBUG
+				printTime(delay);
+#endif
 			}
 			else
 			{
 				printf("LED GREEN OFF");
+#ifdef PC_DEBUG
+				printTime(delay);
+#endif
 			}
 #endif
 	}
@@ -100,11 +119,11 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 
-				PRINTF("LED BLUE ON %d\n", msDelay);
+				PRINTF("LED BLUE ON %d", msDelay);
 			}
 			else
 			{
-				PRINTF("LED BLUE OFF %d\n", msDelay);
+				PRINTF("LED BLUE OFF %d", msDelay);
 			}
 #endif
 #endif
@@ -112,11 +131,32 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 				printf("LED BLUE ON");
+#ifdef PC_DEBUG
+				printTime(delay);
+#endif
 			}
 			else
 			{
 				printf("LED BLUE OFF");
+#ifdef PC_DEBUG
+				printTime(delay);
+#endif
 			}
 #endif
 	}
+	printf("\n");
 }
+
+#ifdef PC_DEBUG
+void printTime(uint32_t delay)
+{
+
+	time_t	t;
+	struct tm * curTime;
+	time(&t);
+	curTime = localtime(&t);
+	printf(" %02d:%02d:%02d %d", curTime->tm_hour, curTime->tm_min,
+	        curTime->tm_sec, delay);
+
+}
+#endif
