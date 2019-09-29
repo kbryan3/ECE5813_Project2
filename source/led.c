@@ -53,11 +53,11 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 #ifdef FB_DEBUG
 			if(on)
 			{
-				PRINTF("LED RED ON %d", msDelay);
+				PRINTF("LED RED ON %d\n", msDelay);
 			}
 			else
 			{
-				PRINTF("LED RED OFF %d", msDelay);
+				PRINTF("LED RED OFF %d\n", msDelay);
 			}
 #endif
 #endif
@@ -86,11 +86,11 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 
-				PRINTF("LED GREEN ON %d", msDelay);
+				PRINTF("LED GREEN ON %d\n", msDelay);
 			}
 			else
 			{
-				PRINTF("LED GREEN OFF %d", msDelay);
+				PRINTF("LED GREEN OFF %d\n", msDelay);
 			}
 #endif
 #endif
@@ -119,11 +119,11 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			if(on)
 			{
 
-				PRINTF("LED BLUE ON %d", msDelay);
+				PRINTF("LED BLUE ON %d\n", msDelay);
 			}
 			else
 			{
-				PRINTF("LED BLUE OFF %d", msDelay);
+				PRINTF("LED BLUE OFF %d\n", msDelay);
 			}
 #endif
 #endif
@@ -144,7 +144,9 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			}
 #endif
 	}
+#ifdef PC_DEBUG
 	printf("\n");
+#endif
 }
 
 #ifdef PC_DEBUG
