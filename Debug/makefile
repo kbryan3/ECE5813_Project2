@@ -1,24 +1,39 @@
-############################
+##########################
+#
+#@brief: Custom makefile to build PC and FB projects
+#
+# This makefile builds 2 different files(.axf for FB and .out for PC)
+# User must call the correct target and then if creating the .out add
+# TARGET = PC which tells the makefule to select the proper settings/files
+# for generating the PC version of the application
+#
+# @author Kyle Bryan
+# @date September 30 2019
+# version 1.0
+#
+#based off of the example given in the project 2 description given in class
+# https://mcuoneclipse.com/s017/07/22/tutorial-makefile-projects-with-eclipse/
+###########################
 # Command for removing files
 RM := rm -rf
 
 ############################
 # Compiler
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	CC = arm-none-eabi-gcc
 else
 	CC = gcc
 endif
 ############################
 # Linker
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	LL = arm-none-eabi-gcc
 else
 	LL = gcc
 endif
 ############################
 # Binary/exectable to build
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	EXE = project2.axf
 else
 	EXE = project2.out
@@ -49,7 +64,7 @@ OBJS_PC := \
 	./source/project2.o \
 	./source/led.o
 
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	OBJS = $(OBJS_FB)
 else
 	OBJS = $(OBJS_PC)
@@ -70,7 +85,7 @@ C_DEPS_PC := \
 	  ./source/project2.d \
 		./source/led.d
 
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	C_DEPS = $(C_DEPS_FB)
 else
 	C_DEPS = $(C_DEPS_PC)
@@ -90,14 +105,14 @@ INC = -I../board -I../source -I../ -I../drivers -I../CMSIS -I../utilities -I../s
 
 ############################
 # Compiler options
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	CC_OPTIONS = -c -std=gnu99 -O0 -g -ffunction-sections -fdata-sections -fno-builtin -mcpu=cortex-m0plus -mthumb -DCPU_MKL25Z128VLK4 -D__USE_CMSIS $(INC)
 else
 	CC_OPTIONS = -O0 -c -g $(INC) -DPC_RUN
 endif
 ############################
 # Linker Options
-ifeq ($(TARGET), FB)
+ifneq ($(TARGET), PC)
 	LL_OPTIONS = -nostdlib -Xlinker -Map="project2.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0plus -mthumb -T project2_Debug.ld -o $(EXE)
 else
 	LL_OPTIONS =
