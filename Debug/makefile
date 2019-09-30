@@ -67,12 +67,8 @@ C_DEPS_FB := \
   ./utilities/*.d
 
 C_DEPS_PC := \
-	  ./board/*.d \
-	  ./CMSIS/*.d \
-	  ./drivers/*.d \
-	  ./source/*.d \
-	  ./startup/*.d \
-	  ./utilities/*.d
+	  ./source/project2.d \
+		./source/led.d
 
 ifeq ($(TARGET), FB)
 	C_DEPS = $(C_DEPS_FB)
@@ -109,14 +105,11 @@ endif
 
 
 ############################
-# Main (all) target
-all: $(EXE)
-	@echo "*** finished building ***"
-
+# Main targets
 fb_run: $(EXE)
 	@echo "*** finished building ***"
 
-fb_run: CC_OPTIONS += -DFB_DEBUG
+fb_debug: CC_OPTIONS += -DFB_DEBUG
 fb_debug: $(EXE)
 	@echo "*** finished building ***"
 
