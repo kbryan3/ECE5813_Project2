@@ -3,10 +3,19 @@
 * @file led.c
 * @brief Has functions to initialize LEDs as well as turn them on and off
 *
+* This module has functions that can be called to initialize and toggle LEDs
+* It also has pre-processor ifdefs that add/remove text based on the following
+*   a) Freedom Board Only
+*   b) Freedom Board plus Debug Serial Prinout
+*		c) PC Only
+*   d) PC with Debug info
+*
 * @author Kyle Bryan
-* @date September 18 2019
+* @date September 30 2019
 * version 1.0
 *
+* The printTime fucntion contains code for printing the HH:MM:SS from
+*https://stackoverflow.com/questions/5141960/get-the-current-time-in-c
 ***********************************************************************/
 #include <stdint.h>
 #include "led.h"
@@ -26,7 +35,6 @@
 #endif
 
 #ifdef PC_DEBUG
-static time_t lastTime;
 void printTime();
 #endif
 
@@ -144,7 +152,7 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 			}
 #endif
 	}
-#ifdef PC_DEBUG
+#ifdef PC_RUN
 	printf("\n");
 #endif
 }
@@ -154,7 +162,7 @@ void printTime(uint32_t delay)
 {
 //https://stackoverflow.com/questions/5141960/get-the-current-time-in-c
 	time_t	t;
-	struct tm * curTime;
+	struct tm * curTime = NULL;
 	time(&t);
 	curTime = localtime(&t);
 	printf(" %02d:%02d:%02d %d", curTime->tm_hour, curTime->tm_min,
