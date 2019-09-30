@@ -6,6 +6,7 @@
 # User must call the correct target and then if creating the .out add
 # TARGET = PC which tells the makefule to select the proper settings/files
 # for generating the PC version of the application
+# targets include: fb_run, fb_debug, pc_run, pc_debug
 #
 # @author Kyle Bryan
 # @date September 30 2019
@@ -143,22 +144,13 @@ clean:
 	-@echo ' '
 
 ############################
-# Rule to link the executable for FRDM Board version
+# Rule to link the executable
 $(EXE): $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Linker'
 	$(LL) $(LL_OPTIONS) $(OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
-
-############################
-# Rule to create .out of PC version
-#project2.out: ./source/project2.o ./source/led.o $(USER_OBJS)
-#	@echo 'Building target: $@'
-#	@echo 'Invoking: Linker'
-#	$(LL) $(LL_OPTIONS) $(OBJS) $(LIBS)
-#	@echo 'Finished building target: $@'
-#	@echo ' '
 
 
 
