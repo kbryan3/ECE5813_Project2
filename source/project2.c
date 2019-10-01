@@ -82,6 +82,15 @@
      500, 100, 1000, 200, 1000, 400, 2000, 600};
  #endif
 
+ /**
+ * @brief Delays the application
+ *
+ * This function generates a delay based on a given delay value
+ *
+ * @param int32_t number of ms(or clock cycles) to delay
+ *
+ *@return void
+ */
  void delay(volatile uint32_t number);
 
 
