@@ -26,6 +26,12 @@ e.g:
 "make -r -f makefile -j8 fb_run"
 
 ##### Repository Contents
+###### Updated WBS
+*PES Project 2 WBS_Update.pdf*
+
+An updated WBS from the original showing the WBS for this project, all updates are in red font.
+
+
 ###### Source Code
 *project2.c*, *led.h*, *led.c*, *makefile*
 
