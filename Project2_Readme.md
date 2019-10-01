@@ -32,7 +32,8 @@ e.g:
 This project flashes an LED in a given order as well as changes the LED color
 every three ON/OFF cycles.  The main() is located in project2.c while led.c/.h
 contains the functions for initializing and blinking the LEDs.  The makefile is
-used to generate the executables for the FRDM or PC platform.
+used to generate the executables for the FRDM or PC platform.  Many other driver/board files
+are also in this repository for use on the FRDM-KL25Z.
 
 *There is code taken from https://stackoverflow.com/questions/5141960/get-the-current-time-in-c which is
 pointed out in the led.c file*
