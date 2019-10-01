@@ -659,10 +659,10 @@
 			</target>
 			<target name="fb_run" path="Debug" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments>-r -f ..\makefile -j8</buildArguments>
+				<buildArguments>-r -f makefile -j8</buildArguments>
 				<buildTarget>fb_run</buildTarget>
 				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
+				<useDefaultCommand>false</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
 			<target name="fb_debug" path="Debug" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
