@@ -158,6 +158,16 @@ void toggleLED(uint8_t ledColor, uint32_t delay, _Bool on)
 }
 
 #ifdef PC_DEBUG
+/**
+* @brief Private facing function that prints the time for the PC Debug version
+*
+* When called the current time as well as the delay between the last ON or off
+* is printed.
+*
+* @param uint32_t delay the delay time from the last ON or OFF call
+*
+* @return void
+*/
 void printTime(uint32_t delay)
 {
 //https://stackoverflow.com/questions/5141960/get-the-current-time-in-c
